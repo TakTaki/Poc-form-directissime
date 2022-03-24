@@ -18,9 +18,19 @@
         <div class="col" id="some-custom-id">
             {{ form_row(form.siret) }}
         </div>
-        <div class="add-another-collection-widget">
-            {{ form_row(form.users.vars.prototype) }}
+        <div id="users"
+             data-prototype="{{ form_row(form.users.vars.prototype)|e('html_attr') }}"
+             data-widget-counter="{{ form.users|length }}"
+        >
+            {{ form_row(form.users) }}
+            <span></span>
         </div>
-        <button type="submit" class="btn">Valider</button>
+        <button type="button"
+                class="add-another-collection-widget"
+                data-list-selector="#users">Add another user</button>
     </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
 {% endblock %}

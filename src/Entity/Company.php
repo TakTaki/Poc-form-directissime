@@ -21,7 +21,7 @@ class Company implements \Stringable
     #[ORM\Column(type: 'string', length: 255)]
     private $siret;
 
-    #[ORM\OneToMany(mappedBy: 'company', targetEntity: User::class)]
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: User::class, cascade: ['persist'])]
     private $users;
 
     public function __construct()
