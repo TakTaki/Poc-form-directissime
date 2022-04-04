@@ -6,7 +6,10 @@ use App\Entity\Company;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CompanyType extends AbstractType
@@ -15,7 +18,12 @@ class CompanyType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('siret')
+            ->add('siret', TextType::class, [
+
+            ])
+            ->add('test', TextType::class, [
+                'mapped' => false,
+            ])
             ->add('users', CollectionType::class, [
                 'entry_type' => UserType::class,
                 'label' => false,

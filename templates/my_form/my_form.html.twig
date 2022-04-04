@@ -3,7 +3,6 @@
 {% block title %}Formulaire{% endblock %}
 
 {% block body %}
-    <script src="javascript/add-collection-widget.js"></script>
     <h1>MyForm</h1>
     {{ form_start(form) }}
     {{ form_row(form._token) }}
@@ -15,10 +14,11 @@
         <div class="col">
             {{ form_row(form.name) }}
         </div>
-        <div class="col" id="some-custom-id">
+        <div class="col autocomplete-widget" id="some-custom-id" data-autocomplete-url="{{ path('autocomplete_pappers') }}">
             {{ form_row(form.siret) }}
         </div>
         <div id="users"
+             data-index="{{ form.users|length > 0 ? form.users|last.vars.name + 1 : 0 }}"
              data-prototype="{{ form_row(form.users.vars.prototype)|e('html_attr') }}"
              data-widget-counter="{{ form.users|length }}"
         >
@@ -33,4 +33,6 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="javascript/autocomplete-widget.js"></script>
+
 {% endblock %}

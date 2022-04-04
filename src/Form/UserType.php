@@ -17,9 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType
 {
-    public function __construct(
-        private UserRepository $userRepository
-    ) {}
+    public function __construct() {}
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -32,18 +30,6 @@ class UserType extends AbstractType
                 'label' => 'Prénom'
             ])
         ;
-
-        $builder->addEventListener(
-            FormEvents::PRE_SUBMIT,
-            function (FormEvent $event) {
-                $data = $event->getData();
-                $form = $event->getForm();
-
-                if ($this->userRepository->findOneBy(['email' => $data['email']])) {
-                    $form->addError(new FormError('Cet email est déjà utilisé.'));
-                }
-            }
-        );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
